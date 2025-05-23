@@ -1,5 +1,6 @@
 version: 2
 
+
 sources:
   - name: localbike      ##  indicate the source's name in DBT
     schema: sourcelocalbike   ##  indicate ensemble data in BIGQUERY
