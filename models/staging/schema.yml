@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: stg_localbike__brands
+    description: "this model contains the name of brands"
+    columns:
+      - name: brand_id
+        description: "Primary KEY - Id of the brand"
+        tests:
+          - unique
+          - not_null
+      - name: brand_name
+        description: "the name of the brand"
+
+  - name: stg_localbike_categories
+    description: "this modelcontains the list of categories of products"
+    columns:
+      - name: category_id
+        description: "Primary Key"
+        tests:
+          - not_null
+          - unique
+      - name: category_name
+        description: "Name of the category of product"
+      
+  - name: stg_localbike__customers
+    description: "this model contains the list of customers"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+        description: "Nom de la personne"
+      - name: state
+        description: "State where the customer"
