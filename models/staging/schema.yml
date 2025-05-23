@@ -12,7 +12,7 @@ models:
       - name: brand_name
         description: "the name of the brand"
 
-  - name: stg_localbike_categories
+  - name: stg_localbike__categories
     description: "this modelcontains the list of categories of products"
     columns:
       - name: category_id
