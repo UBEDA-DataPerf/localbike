@@ -2,7 +2,11 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
+<<<<<<< HEAD
+name: 'my_new_project'
+=======
 name: 'my_localbike'
+>>>>>>> 432afb591054dc0c4f0b730fd57c7347747de9c2
 version: '1.0.0'
 config-version: 2
 
@@ -36,6 +40,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
+<<<<<<< HEAD
+  my_new_project:
+    # Applies to all files under models/example/
+    example:
+      +materialized: table
+=======
   my_localbike:
     # Applies to all files under models/example/
     staging:
@@ -45,3 +55,4 @@ models:
     mart:
       +materialized: table
 
+>>>>>>> 432afb591054dc0c4f0b730fd57c7347747de9c2
