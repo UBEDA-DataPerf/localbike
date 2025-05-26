@@ -13,7 +13,7 @@ models:
         description: "the name of the brand"
 
   - name: stg_localbike__categories
-    description: "this modelcontains the list of categories of products"
+    description: "this model contains the list of categories of products"
     columns:
       - name: category_id
         description: "Primary Key"
@@ -34,4 +34,150 @@ models:
       - name: first_name
         description: "Nom de la personne"
       - name: state
-        description: "State where the customer"
+        description: "State where customer lives"
+
+  - name: stg_localbike__order_items
+    description: "this model contains the details of orders by the customers"
+    columns:
+      - name: pk_order
+        description: "Primary key composed by order_id & '_' & item_id "
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: "Foreign Key in relation with the model orders"
+        tests:
+          - relationships:
+              name: order_id_foreign_key_in_stg_localbike_order_items
+              to: ref('stg_localbike__orders')
+              field: order_id
+      - name: product_id
+        description: "Foreign Key in relation with the product model"
+        tests:
+          - relationships:
+              name: product_id_in_stg_localbike__order_items
+              to: ref('stg_localbike__products')
+              field: product_id
+      - name: quantity
+        description: "The quantity of product for each order_item"
+      - name: unit_price
+        description: "the product's price"
+        tests:
+          - not_null
+      - name: discount_amount_by_items
+        description: "Calculated: Discount per order item compared to the regular price, helping to evaluate the total discount."
+      - name: total_amount_by_order_items
+        description: "Calculated: Total amount per order item, avoiding the need for further calculations during analysis."
+
+  - name: stg_localbike__orders
+    description: "this model contains list of orders"
+    columns:
+      - name: order_id
+        description: "Primary key order_id"
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "the customer_id for this order"
+        tests:
+          - relationships:
+              name: customer_id_foreign_key_in_stg_localbike__customers
+              to: ref('stg_localbike__customers')
+              field: customer_id
+      - name: order_status
+        description: "status of the order, four values in 1 to 4 "
+      - name: store_id
+        description: " Foreign Key -  Store_id "
+        tests:
+          - relationships:
+              name: store_id_foreignkey_in_stg_localbike__stores
+              to: ref('stg_localbike__stores')
+              field: store_id
+      - name: staff_id
+        description: "Foreign Key - Staff_id"
+        tests:
+          - relationships:
+              name: staff_id_foreign_key_in_stg_localbike__staffs
+              to: ref('stg_localbike__staffs')
+              field: staff_id
+
+  - name: stg_localbike__products
+    description: "this model contains the list of products"
+    columns:
+      - name: product_id
+        description: "Primary Key Product"
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: "The name of product"
+      - name: brand_id
+        description: "Foreign Key"
+      - name: category_id
+        description: "Foreign Key of category"
+        tests:
+          - relationships:
+              name: category_id_foreign_key_in_stg_localbike__categories
+              field: category_id
+              to: ref('stg_localbike__categories')
+      - name: model_year
+        description: "model_year"
+      - name: list_price
+        description: "price of product"
+
+
+  - name: stg_localbike__staffs
+    description: "this model contains the list of staffs, the organisation of hierarchie"
+    columns:
+      - name: staff_id
+        description: "Primary Key,  Id for each member"
+        tests:
+          - not_null
+          - unique
+      - name: store_id
+        description: "Foreign key, each staff_id have a store_id in responsabilty"
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_localbike__staffs
+              to: ref('stg_localbike__stores')
+              field: store_id
+      - name: manager_id
+        description: "Manager_id in this same list, the global manager dont have manager_id in reality, so manager_id=0"
+
+  - name: stg_localbike__stocks
+    description: "this model contains the quantity of stocks by stores, product, name of brands"
+    columns:
+      - name: pk_store_and_product
+        description: "Primary Key maked by store_id & '_'& product_id" 
+        tests:
+          - unique
+          - not_null
+      - name: store_id
+        description: Foreign Key Store_id
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_localbike__stocks
+              to: ref('stg_localbike__stores')
+              field: store_id
+      - name: product_id
+        description: Foreign Key product_id
+        tests:
+          - relationships:
+              name: product_id_foreign_key_in_stg_localbike__products
+              to: ref('stg_localbike__products')
+              field: product_id
+
+  - name: stg_localbike__stores
+    description: "this model contains the name of stores, the location and contact's information. At year 2025, there are 3 values"
+    columns:
+      - name: store_id
+        description: "Primary Key store_id"
+        tests:
+          - not_null
+          - unique
+      - name: store_name
+        description: "Name of the store"
+      - name: state
+        description: "State in 2 letters code"
+      - name: city
+        description: "the littary name of the city"

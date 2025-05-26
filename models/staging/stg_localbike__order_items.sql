@@ -1,5 +1,5 @@
 SELECT
-  CAST(CONCAT(order_id,"_",item_id) AS STRING) AS PK_order,
+  CAST(CONCAT(order_id,"_",item_id) AS STRING) AS pk_order,
   CAST(order_id AS INT64) AS order_id,
   CAST(product_id AS INT64) AS product_id,
   CAST(quantity AS INT64) AS quantity,
