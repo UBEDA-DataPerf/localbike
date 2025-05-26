@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: mrt_localbike__order
+    description: Model of order on free
+    config:
+      materialized: table
+      partition_by:
+        field: order_date
+        data_type: date
+        granularity: day
+      
+    columns:
+      - name: pk_order
+        description: "a supprimer"
+      
+  
