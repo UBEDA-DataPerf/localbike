@@ -1,17 +1,115 @@
 version: 2
 
 models:
-  - name: mrt_localbike__order
-    description: Model of order on free
-    config:
-      materialized: table
-      partition_by:
-        field: order_date
-        data_type: date
-        granularity: day
-      
+  - name: mrt_localbike__orders
+    description: "Detailed order data including item quantities, pricing, discounts, and customer information."
     columns:
       - name: pk_order
-        description: "a supprimer"
-      
+        description: "Primary key for the order line (unique per item within an order)."
+        tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: "Order identifier. Groups multiple items under a single customer order."
+        tests:
+          - not_null
+
+      - name: quantity_by_item
+        description: "Quantity of a specific item in the order."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
+
+      - name: total_amount_by_order_items
+        description: "Total price for the ordered quantity of the item, before discounts."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
+
+      - name: discount_amount_by_items
+        description: "Discount amount applied to this item line."
+        tests:
+          - not_null
+          - greater_than_or_equal_to:
+              value: 0
+
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        tests:
+          - not_null
+
+      - name: order_date
+        description: "Date when the order was placed."
+        tests:
+          - not_null
+
+      - name: category_name
+        description: "Product category (e.g., Mountain Bikes, Cruisers Bicycles)."
+        tests:
+          - not_null
+
+      - name: product_name
+        description: "Name of the product ordered."
+        tests:
+          - not_null
+
+      - name: list_price
+        description: "List price of a single unit of the product."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
+
+      - name: brand_name
+        description: "Brand of the product."
+        tests:
+          - not_null
+
+
+  - name: mrt_localbike__stocks
+    description: "Local bike stock table, including product, store, and inventory information."
+    columns:
+      - name: product_name
+        description: "Name of the product (bike)."
+        tests:
+          - not_null
+
+      - name: model_year
+        description: "Model year of the bike."
+
+      - name: list_price
+        description: "Listed price of the product (in local currency)."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
+
+      - name: store_name
+        description: "Name of the store where the bike is available."
+
+
+      - name: city
+        description: "City where the store is located."
+
+      - name: state
+        description: "State or region where the store is located."
+
+      - name: category_name
+        description: "Bike category (e.g., electric Bikes, Cruisers Bicycles, etc.)."
+        tests:
+          - not_null
+
+      - name: brand_name
+        description: "Brand of the bike."
+
+      - name: quantity
+        description: "Quantity available in stock."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
+
   
