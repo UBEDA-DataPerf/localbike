@@ -3,8 +3,8 @@ SELECT
   o.order_id,
   p.product_id,
   oi.quantity AS quantity_by_item,
-  discount_amount_by_items
-  total_amount_by_items,
+  discount_amount_by_items,
+  total_amount_by_order_items,
   customer_id,
   order_date,
   store_id,
