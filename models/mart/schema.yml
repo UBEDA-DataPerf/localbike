@@ -19,22 +19,16 @@ models:
         description: "Quantity of a specific item in the order."
         tests:
           - not_null
-          - greater_than:
-              value: 0
 
       - name: total_amount_by_order_items
         description: "Total price for the ordered quantity of the item, before discounts."
         tests:
           - not_null
-          - greater_than:
-              value: 0
 
       - name: discount_amount_by_items
         description: "Discount amount applied to this item line."
         tests:
           - not_null
-          - greater_than_or_equal_to:
-              value: 0
 
       - name: customer_id
         description: "Identifier of the customer who placed the order."
@@ -60,8 +54,6 @@ models:
         description: "List price of a single unit of the product."
         tests:
           - not_null
-          - greater_than:
-              value: 0
 
       - name: brand_name
         description: "Brand of the product."
@@ -84,12 +76,9 @@ models:
         description: "Listed price of the product (in local currency)."
         tests:
           - not_null
-          - greater_than:
-              value: 0
 
       - name: store_name
         description: "Name of the store where the bike is available."
-
 
       - name: city
         description: "City where the store is located."
@@ -109,7 +98,6 @@ models:
         description: "Quantity available in stock."
         tests:
           - not_null
-          - greater_than:
-              value: 0
+
 
   

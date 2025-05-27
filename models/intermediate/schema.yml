@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: int_localbike__order_items
-    description: '{{ doc("int_localbike__order_items") }}'
+    description: "Intermediate model in order to prepare mrt_model"
     columns:
       - name: pk_order
         description: "Primary Key"
@@ -11,7 +11,7 @@ models:
           - not_null
 
   - name: int_localbike__stocks
-    description: '{{ doc("int_localbike__stocks") }}'
+    description: "Intermediate model in order to prepare mrt_model"
     columns:
       - name: product_name
         description: The nzme of the product
